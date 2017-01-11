@@ -1,0 +1,63 @@
+<div ng-controller="stuRoomCtrl" style="height:100%">
+
+    <div style="height:25%;padding-left:30%;padding-top:2%;font-size:120%;width: 80%;">
+
+        <script type="text/ng-template" id="myday.html">
+            <div uib-datepicker ng-model="$parent.myDay" ng-change="changed()"></div>
+            <br>
+            <div style="float:left;padding-top:15%">选择时间(24时)：</div>
+            <div uib-timepicker ng-model="$parent.myTime" ng-change="changed()" show-seconds="true" show-meridian="false" show-spinners="true"></div>
+        </script>
+        <script type="text/ng-template" id="endday.html">
+            <div uib-datepicker ng-model="$parent.endDay" ng-change="endchanged()"></div>
+            <br>
+            <div style="float:left;padding-top:15%">选择时间(24时)：</div>
+            <div uib-timepicker ng-model="$parent.endTime" ng-change="endchanged()" show-seconds="true" show-meridian="false" show-spinners="true"></div>
+        </script>
+        <!--<div style="float:left">-->
+
+        <span>开始时间<input ng-model="startSelected">
+            <button uib-popover-template="'myday.html'" type="button" class="btn btn-primary" popover-placement="bottom-left">选择日期</button>
+         <p></p>
+            考试时长<input ng-model="finishSelected">分钟
+            <!--<button uib-popover-template="'endday.html'" type="button" class="btn btn-primary" popover-placement="bottom-left">选择日期</button>
+            </span>-->
+        <p></p>
+        <!--</div>-->
+        <span>选择考场</span><select ng-model="selectedRoom" ng-options="x as x.subName for x in sumSub | orderBy:'subName'"></select>
+         <br>
+        <div style="padding-left:40%">
+        <button class="btn btn-primary" ng-click="selectSubject(selectedRoom)">确认</button>
+        </div>
+    </div>
+
+
+    <div class="selectArea" style="display: {{showRoom}}">
+        <div style="height: 5%">
+            <!--<span>总人数：{{roomsInfo.length}}&nbsp&nbsp&nbsp&nbsp</span> <span><span>未登录：{{absentNum}}&nbsp&nbsp&nbsp&nbsp</span>-->
+            <span class="glyphicon glyphicon-refresh cursor-pointer" ng-click="refresh()">刷新</span> <span style="float: right"></span>
+            <span style="float: right"> 
+					<button type="button" class="btn btn-info" ng-click="selectAll()">全部选择</button>
+					<button type="button" class="btn btn-info" ng-click="cancelAll()">取消选择</button>
+			</span>
+        </div>
+        <div class="table-responsive">
+            <table class="table table-hover table-bordered">
+                <tr>
+                    <th ng-repeat="(key,value) in examineeMetaInfo" ng-click="thClick(key)" class='cursor-pointer'>{{value}}
+                    </th>
+                    <th>选择</th>
+                </tr>
+                <tr ng-repeat="x in examineesInfo | orderBy:orderCondition:isReverse">
+                    <td ng-bind="x.name"></td>
+                    <td ng-bind="x.id"></td>
+                    <td ng-bind="x.major"></td>
+                    <td ng-bind="x.subject"></td>
+                    <td><input type="checkbox" ng-model="selectionStatus[x.id]"></td>
+                    <!--<td><a ng-click="edit()"  class="cursor-pointer" >编辑</a></td>-->
+                    <!--<td><select ng-model="examNum" ng-options="x for x in subNumlists"></select></td>-->
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>

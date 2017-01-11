@@ -1,0 +1,34 @@
+<div class="col-md-8 col-md-offset-3" ng-controller="stuInputCtrl">
+    <div class="form-group" style="padding-left:15%;font-size:150%">
+        学生信息
+    </div>
+    <div class="form-group">
+        <span style="width:10%;display:inline-block">姓名：</span><input ng-model="stuName">
+    </div>
+    <div class="form-group">
+        <span style="width:10%;display:inline-block">性别：</span><input ng-model="stuGender">
+    </div>
+    <div class="form-group">
+        <span style="width:10%;display:inline-block">证件号：</span><input ng-model="stuId">
+    </div>
+    <div class="form-group">
+        <span style="width:10%;display:inline-block">照片：</span>
+        <input type="file" id="selectPic" style="display:none" custom-on-change="selectFile">
+        <input ng-model="stuPicture" placeholder="选择文件" disabled>
+        <label for="selectPic" class="btn btn-primary">选择文件</label></button>
+        <button type="button" ng-click="upload()" class="btn btn-info">导入</button>
+        <div style="padding-left:33%">
+            <uib-progressbar class="progress-striped active" animate='false' value="progressPer" type="success" style="width:30%" align="center" ng-show=ngshow>{{progressPer}}%</uib-progressbar>
+            {{progressInfo}}
+        </div>
+    </div>
+    <div class="form-group">
+        <span style="width:10%;display:inline-block">科目：</span><input ng-model="stuSubject">
+    </div>
+    <div class="form-group">
+        <span style="width:10%;display:inline-block">科目编号：</span><input ng-model="stuSubNum">
+    </div>
+    <div class="form-group">
+        <button class="btn btn-primary" ng-click="save()">保存</button> <button class="btn btn-warning" ng-click="delete()">下一个</button>
+    </div>
+</div>

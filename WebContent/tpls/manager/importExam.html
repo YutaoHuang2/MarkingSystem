@@ -1,0 +1,47 @@
+<div ng-controller="ImportFile" style="height:100%">
+
+    <div style="margin-bottom:3%;height:12%">
+        <br>
+        <input type="file" id="selectFile" style="display:none" custom-on-change="selectFile">
+        <input ng-model="fileName" placeholder="选择文件" disabled>
+        <label for="selectFile" class="btn btn-primary">选择文件</label>
+        <button type="button" ng-click="upload()" class="btn btn-info">导入文件</button>
+        <button type="button" ng-click="clear()" class="btn btn-info">清空卷库</button>
+        <span class="glyphicon glyphicon-refresh" style="animation: refreshing infinite linear 1s;" ng-show=clearshow></span>
+        <div style="padding-left:33%">
+            <uib-progressbar class="progress-striped active" animate='false' value="progressPer" type="success" style="width:30%" align="center" ng-show=ngshow>{{progressPer}}%</uib-progressbar>
+            <!--  <uib-progressbar class="progress-striped active" animate='false' value="clearPer" type="success" style="width:30%" ng-show=clearshow>{{clearPer}}%</uib-progressbar> -->
+        </div>
+        <div style="font-size:120%">
+            <span class="glyphicon glyphicon-refresh" style="animation: refreshing infinite linear 1s;" ng-show=checkshow>
+                
+            </span>
+            <span ng-show=checkshow> 正在检测中......</span>
+        </div>
+
+        <!--</div>-->
+    </div>
+    <div class="selectArea">
+        <div style="height: 5%">
+            <span style="float: left" class="glyphicon glyphicon-refresh cursor-pointer" ng-click="refresh()">刷新</span>
+        </div>
+        <div class="table-responsive" style="height: 95%">
+            <table class="table table-hover table-bordered">
+                <tr>
+                    <th ng-repeat="(key,value) in examMetaInfo" ng-click="thClick(key)" class='cursor-pointer'>{{value}}
+                    </th>
+                </tr>
+                <tr ng-repeat="x in Examinfo | orderBy:orderCondition:isReverse">
+                    <!--<td ng-bind="x.paperId"></td>-->
+                    <td ng-bind="x.proName"></td>
+                    <td ng-bind="x.proId"></td>
+                    <td ng-bind="x.subName"></td>
+                    <td ng-bind="x.subId"></td>
+                    <td ng-bind="x.paperNum"></td>
+                    <td ng-bind="x.totalScore"></td>
+                    <td style="width:40%;text-align:left;overflow-x:scroll" ng-bind="x.typeNumScore"></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>

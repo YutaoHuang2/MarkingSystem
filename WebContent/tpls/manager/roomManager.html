@@ -1,0 +1,45 @@
+<div ng-controller="roomCtrl" style="height:100%">
+    <div style="margin-bottom:3%;height:12%">
+        <br>
+        <span>考场管理：选择相应考场，进入该考场。</span>
+        <br>
+        <div style="margin: 2% auto; width: 80%; text-align: center">
+            <button type="button" class="btn btn-primary" ng-click="confirm(x.url)">确认操作</button>
+        </div>
+    </div>
+    <div class="selectArea">
+        <div style="height: 5%">
+            <!--<span>总人数：{{roomsInfo.length}}&nbsp&nbsp&nbsp&nbsp</span> <span><span>未登录：{{absentNum}}&nbsp&nbsp&nbsp&nbsp</span>-->
+            <span style="float: left" class="glyphicon glyphicon-refresh cursor-pointer" ng-click="refresh()">刷新</span> <span style="float: right"> 
+                <button class="btn btn-primary" style="{{loadStyle}}" ng-disabled="loadButtonDisabled" ng-click="loadExam()">分发试卷</button>
+                <button class="btn btn-primary" style="{{loadStyles}}" ng-disabled="loadButtonDisableds" ng-click="loadStart()">开考</button>
+                    <!--<label ng-bind="'已选择:'+selectedNum+'/'+roomsInfo.length"></label>-->
+					<!--<button type="button" class="btn btn-info" ng-click="selectAll()">全部选择</button>
+					<button type="button" class="btn btn-info" ng-click="cancelAll()">取消选择</button>-->
+				</span>
+
+        </div>
+        <div class="table-responsive">
+            <table class="table table-hover table-bordered">
+                <tr>
+
+                    <th ng-repeat="(key,value) in roomMetaInfo" ng-click="thClick(key)" class='cursor-pointer'>{{value}}
+                    </th>
+                    <th>选择</th>
+                </tr>
+                <tr class="{{roomsStatus[room.id]}}" ng-repeat="room in roomsInfo | orderBy:orderCondition:isReverse">
+                    <!--<td ng-bind="room.id"></td>-->
+                    <td ng-bind="room.roomName"></td>
+                    <td ng-bind="room.startTime| date:'yyyy-MM-dd HH:mm:ss'"></td>
+                    <td ng-bind="room.uid"></td>
+                    <td ng-bind="room.size"></td>
+                    <td ng-bind="statusDisplay[room.status]"></td>
+                    <td ng-bind="statusDisplay1[room.loadStatus]"></td>
+                    <td ng-bind="statusDisplay2[room.examStatus]"></td>
+                    <!--<td ng-bind="room.detail"></td>-->
+                    <td><input type="checkbox" ng-model="selectionStatus[room.id]" ng-click="checkSel(selectionStatus[room.id],room.id)"></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
