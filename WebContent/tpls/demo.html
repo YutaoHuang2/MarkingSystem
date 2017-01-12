@@ -6,56 +6,88 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css"> 
   <link rel="stylesheet" href="frame.css">
-  
+
   <script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
   <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-  <script src="fabric.js"></script>
+  <script src="http://cdn.bootcss.com/fabric.js/1.7.3/fabric.min.js" ></script>
 </head>
 <body>
 <div class="container-fluid">
   <div class="row-fluid">
-    <div class="col-lg-10" style=" padding-top: 30px">
-      
-      <div id="Div1" style=" float: left; width: 100%; height: 600px; overflow:scroll; ">
+    <div class="col-lg-9 right-side">
+      <div style=" float: left; width: 100%; height: 550px; overflow:scroll; ">
         <canvas id="canvas" width="1" height="1"></canvas>
       </div>
+      <div style="width: 100%;">
 
-      </br>
-      <div>      
         <button id="zoomin">放大</button>
         <button id="zoomout">缩小</button>
-        <input id="checkbox" type="image" src="checkbox.png" style="width:60px;height:60px"/>
-        <input id="cross" type="image" src="cross.png" style="width:60px;height:60px"/>
-        <input id="blackline" type="image" src="blackline.png" style="width:60px;height:60px"/>
+        <input id="checkbox" type="image" src="checkbox.png" style="width:30px;height:30px"/>
+        <input id="cross" type="image" src="cross.png" style="width:30px;height:30px"/>
+        <input id="blackline" type="image" src="blackline.png" style="width:30px;height:30px"/>
       </div>
     </div>
+    <div class="col-lg-1 right-side" >
+    </div>
+
     <div class="col-lg-2 right-side" >
-      <button>提交</button>
+      <button>零分</button>
+      <button>满分</button>
+      </br>
+
+      <button id="submit">提交</button>
       <button>有问题</button>
       <textarea cols="20" rows="30">评分细则</textarea>
+      <input>asf</input>
     </div>
   </div>
 </div>
 
 
 <script>
-
+  var simage = 'data:image/png;base64,';
+  $.ajax({
+    url:"/mark/getTopic",
+    data: "topicNum=1",
+    success:function(data){
+        simage += data.dir;
+      
+    },
+  });
   var isDrawingLine = false;
   var zoomInFactor = 1.1;
   var zoomOutFactor = 1/zoomInFactor;
   var zoomTime = 0;
   var maxTimes = 3;
   var canvas = new fabric.Canvas('canvas');
-  fabric.Image.fromURL('test.png', function(oImg) {
+  var defaultScore = 0.0;
+  /*var crossOriginImageObj = new Image();
+  crossOriginImageObj.crossOrigin = "Anonymous";
+  crossOriginImageObj.src = "test.png";
+
+  fabric.Image.fromObject(crossOriginImageObj, function(oImg) {
     canvas.setWidth(oImg.width);
     canvas.setHeight(oImg.height);
+    //oImg.setCrossOrigin('anonymous');
+    oImg.setAttribute("corssOrigin","anonymous")
+    oImg.crossOrigin = "anonymous";
+    oImg.selectable = false;
+    oImg.hoverCursor = '11';
+    canvas.add(oImg);
+  });*/
+
+  fabric.Image.fromURL(simage, function(oImg) {
+    canvas.setWidth(oImg.width);
+    canvas.setHeight(oImg.height);    
+    oImg.crossOrigin = "anonymous";
     oImg.selectable = false;
     oImg.hoverCursor = '11';
     canvas.add(oImg);
   });
-
+  
   $('#checkbox').click(function (){
     isDrawingLine = false;
+
     fabric.Image.fromURL('checkbox.png', function(oImg) {
       oImg.width = 60;
       oImg.height = 60;
@@ -92,6 +124,19 @@
     isDrawingLine = true;
   })
 
+  $('#submit').click(function () {
+    var dataURL = canvas.toDataURL({
+      format: 'png',
+      multiplier: 1/1.25
+    });
+
+    fabric.Image.fromURL(dataURL, function(oImg) {
+      console.log(dataURL);
+    });
+    
+  })
+
+  //缩放函数
   function zoomIt(factor) {
     canvas.setHeight(canvas.getHeight() * factor);
     canvas.setWidth(canvas.getWidth() * factor);
@@ -125,7 +170,6 @@
 
   //划线部分
   var canvas = new fabric.Canvas('canvas', { selection: false });
-
   var line, isDown;
 
   canvas.on('mouse:down', function(o){
@@ -159,7 +203,10 @@
 </script>
 <style type="text/css">
   canvas{
-      border: 1px solid black;
+    border: 1px solid black;
+  }
+  .right-side {
+    padding-top: 90px;
   }
 </style>
 </body>
