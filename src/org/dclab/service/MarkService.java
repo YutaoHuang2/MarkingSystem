@@ -82,8 +82,15 @@ public class MarkService {
 						topicPool.get(topicNum).addAll(list);//还有题的话加入试题池
 					}
 				}
-				topic.setDir(dirToPic(topic.getDir()));//把保存的图片名转为二进制流
-				return topic;
+				Topic newTopic = new Topic();
+				newTopic.setId(topic.getId());
+				newTopic.setPaperId(topic.getPaperId());
+				newTopic.setTopicNum(topic.getTopicNum());
+				newTopic.setDetail(topic.getDetail());
+				newTopic.setFullMark(topic.getFullMark());
+				newTopic.setStatus(topic.getStatus());
+				newTopic.setDir(dirToPic(topic.getDir()));//把保存的图片名转为二进制流
+				return newTopic;
 			}	
 		}
 		return "没题了";
@@ -107,7 +114,6 @@ public class MarkService {
 		}
 		BASE64Encoder encoder=new BASE64Encoder();
 		String picture = encoder.encode(data);
-		System.out.println("picture:"+picture);
 		return picture;
 	}
 
