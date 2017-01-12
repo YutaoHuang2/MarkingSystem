@@ -59,12 +59,13 @@ public class MarkController {
 			@RequestParam(value="paperId")int paperId,
 			@RequestParam(value="topicId")int topicId){
 		
+		image = image.replace(' ', '+');
+		System.out.println(image);
 		//首先将传来的数据存入数据库
 		BASE64Decoder decoder = new BASE64Decoder();
-		String pic = paperId+"-"+topicId+"-"+userId+".jsp";
-		String dir = System.getProperty("project.root")+File.separator+"marked"+File.separator;//图片文件夹位置
+		String pic = paperId+"-"+topicId+"-"+userId+".png";
+		String dir = System.getProperty("project.root")+"marked"+File.separator;//图片文件夹位置
 		try {
-			InputStream iStream = new ByteArrayInputStream(decoder.decodeBuffer(image));
 			File picFile = new File(dir+pic);
 			FileOutputStream outputStream = new FileOutputStream(picFile);
 			outputStream.write(decoder.decodeBuffer(image));//将图片存入文件夹
