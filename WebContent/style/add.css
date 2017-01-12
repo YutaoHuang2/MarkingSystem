@@ -1,0 +1,7 @@
+@CHARSET "UTF-8";
+	.select{
+		border:1px solid #cccccc;
+		float: left;
+		display: inline;
+		width:100px;
+	}

@@ -22,9 +22,9 @@
 
         <button id="zoomin">放大</button>
         <button id="zoomout">缩小</button>
-        <input id="checkbox" type="image" src="../image/checkbox.png" style="width:30px;height:30px"/>
-        <input id="cross" type="image" src="../image/cross.png" style="width:30px;height:30px"/>
-        <input id="blackline" type="image" src="../image/blackline.png" style="width:30px;height:30px"/>
+        <input id="checkbox" type="image" src="checkbox.png" style="width:30px;height:30px"/>
+        <input id="cross" type="image" src="cross.png" style="width:30px;height:30px"/>
+        <input id="blackline" type="image" src="blackline.png" style="width:30px;height:30px"/>
       </div>
     </div>
     <div class="col-lg-1 right-side" >
@@ -47,13 +47,9 @@
 <script>
   var simage = 'data:image/png;base64,';
   $.ajax({
-    method:'get',
-    url:"../mark/getTopic",
-    data: "topicNum=2&userId=1234",
-    async: false,
+    url:"http://localhost:8080/MarkingSystem/mark/getTopic",
+    data: "topicNum=1&userId=1234",
     success:function(data){
-		console.log(data);
-		console.log(data.id);
         simage += data.dir;
       
     },
@@ -79,7 +75,7 @@
     oImg.hoverCursor = '11';
     canvas.add(oImg);
   });*/
-	console.log(simage);
+
   fabric.Image.fromURL(simage, function(oImg) {
     canvas.setWidth(oImg.width);
     canvas.setHeight(oImg.height);    
@@ -92,7 +88,7 @@
   $('#checkbox').click(function (){
     isDrawingLine = false;
 
-    fabric.Image.fromURL('../image/checkbox.png', function(oImg) {
+    fabric.Image.fromURL('checkbox.png', function(oImg) {
       oImg.width = 60;
       oImg.height = 60;
       oImg.hoverCursor = '11';
@@ -102,7 +98,7 @@
 
   $('#cross').click(function (){
     isDrawingLine = false;
-    fabric.Image.fromURL('../image/cross.png', function(oImg) {
+    fabric.Image.fromURL('cross.png', function(oImg) {
       oImg.width = 60;
       oImg.height = 60;
       oImg.hoverCursor = '11';

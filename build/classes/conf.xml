@@ -27,6 +27,10 @@
         <mapper resource="sqlMapping/subjectMapper.xml"/>
         <mapper resource="sqlMapping/can_sub_Mapper.xml"/> -->
         <mapper class="org.dclab.mapping.UserMapperI"/>
+        <mapper class="org.dclab.mapping.TopicMapperI"/>
+        <mapper class="org.dclab.mapping.MarkMapperI"/>
+        <mapper class="org.dclab.mapping.PaperMapperI"/>
+        <mapper class="org.dclab.mapping.TempleMapperI"/>
         
     </mappers>
     
