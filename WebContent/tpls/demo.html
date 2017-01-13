@@ -1,11 +1,10 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
   <title>Demo</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css"> 
-  <link rel="stylesheet" href="frame.css">
 
   <script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
   <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -31,33 +30,22 @@
     </div>
 
     <div class="col-lg-2 right-side" >
-      <button>零分</button>
-      <button>满分</button>
+      <button id="zeropoints">零分</button>
+      <button id="fullpoints">满分</button>
       </br>
 
       <button id="submit">提交</button>
-      <button>有问题</button>
-      <textarea cols="20" rows="30">评分细则</textarea>
-      <input>asf</input>
+      <button>有问题</button></br>
+      </br>分数<input id="score" style="width: 100px;" value="0"></input>
+
+      <textarea id="detail" cols="22" rows="30">评分细则</textarea>
     </div>
   </div>
 </div>
 
 
 <script>
-  var simage = 'data:image/png;base64,';
-  $.ajax({
-    method:'get',
-    url:"../mark/getTopic",
-    data: "topicNum=2&userId=1234",
-    async: false,
-    success:function(data){
-		console.log(data);
-		console.log(data.id);
-        simage += data.dir;
-      
-    },
-  });
+
   var isDrawingLine = false;
   var zoomInFactor = 1.1;
   var zoomOutFactor = 1/zoomInFactor;
@@ -65,21 +53,27 @@
   var maxTimes = 3;
   var canvas = new fabric.Canvas('canvas');
   var defaultScore = 0.0;
-  /*var crossOriginImageObj = new Image();
-  crossOriginImageObj.crossOrigin = "Anonymous";
-  crossOriginImageObj.src = "test.png";
+  var fullScore;
+  var paperId;
+  var topicId;
+  var detail;
 
-  fabric.Image.fromObject(crossOriginImageObj, function(oImg) {
-    canvas.setWidth(oImg.width);
-    canvas.setHeight(oImg.height);
-    //oImg.setCrossOrigin('anonymous');
-    oImg.setAttribute("corssOrigin","anonymous")
-    oImg.crossOrigin = "anonymous";
-    oImg.selectable = false;
-    oImg.hoverCursor = '11';
-    canvas.add(oImg);
-  });*/
-	console.log(simage);
+  var simage = 'data:image/png;base64,';
+  $.ajax({
+    method:'get',
+    url:"../mark/getTopic",
+    data: "topicNum=2&userId=1234",
+    async: false,
+    success:function(data){
+      simage += data.dir;
+      fullScore = data.fullMark;
+      paperId = data.paperId;
+      topicId = data.topicNum;
+      detail = data.detail;
+    },
+  });
+
+  $("#detail").val(detail);
   fabric.Image.fromURL(simage, function(oImg) {
     canvas.setWidth(oImg.width);
     canvas.setHeight(oImg.height);    
@@ -128,16 +122,32 @@
     isDrawingLine = true;
   })
 
+  $('#zeropoints').click(function (){
+    $('#score').val("0");
+  })
+
+  $('#fullpoints').click(function (){
+    $('#score').val(fullScore);
+  })
+
   $('#submit').click(function () {
     var dataURL = canvas.toDataURL({
       format: 'png',
       multiplier: 1/1.25
     });
 
-    fabric.Image.fromURL(dataURL, function(oImg) {
-      console.log(dataURL);
+    var param = "userId=1234&time=0&paperId=" + paperId + "&topicId=" + topicId + "&point=" + $("#score").val() + "&image=" + dataURL.substring(22);
+    console.log(dataURL.length);
+    console.log(dataURL);
+    $.ajax({
+      method:'post',
+      url:"../mark/store",
+      data: param,
+      async: false,
+      success:function(data){
+      },
     });
-    
+    defaultScore = 0.0;    
   })
 
   //缩放函数
@@ -204,6 +214,20 @@
     isDown = false;
     isDrawingLine = false;
   });
+    /*var crossOriginImageObj = new Image();
+  crossOriginImageObj.crossOrigin = "Anonymous";
+  crossOriginImageObj.src = "test.png";
+
+  fabric.Image.fromObject(crossOriginImageObj, function(oImg) {
+    canvas.setWidth(oImg.width);
+    canvas.setHeight(oImg.height);
+    //oImg.setCrossOrigin('anonymous');
+    oImg.setAttribute("corssOrigin","anonymous")
+    oImg.crossOrigin = "anonymous";
+    oImg.selectable = false;
+    oImg.hoverCursor = '11';
+    canvas.add(oImg);
+  });*/
 </script>
 <style type="text/css">
   canvas{
