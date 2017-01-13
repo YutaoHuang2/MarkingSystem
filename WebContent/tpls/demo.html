@@ -51,41 +51,40 @@
   var zoomOutFactor = 1/zoomInFactor;
   var zoomTime = 0;
   var maxTimes = 3;
-  var canvas = new fabric.Canvas('canvas');
   var defaultScore = 0.0;
   var fullScore;
   var paperId;
   var topicId;
   var detail;
-
   var simage = 'data:image/png;base64,';
+  var canvas = new fabric.Canvas('canvas');
+
+  //加载图片
   $.ajax({
     method:'get',
     url:"../mark/getTopic",
     data: "topicNum=2&userId=1234",
-    async: false,
     success:function(data){
       simage += data.dir;
       fullScore = data.fullMark;
       paperId = data.paperId;
       topicId = data.topicNum;
-      detail = data.detail;
+      $("#detail").val(data.detail);
+      //在canvas中添加图片
+      fabric.Image.fromURL(simage, function(oImg) {
+        canvas.setWidth(oImg.width);
+        canvas.setHeight(oImg.height);    
+        oImg.crossOrigin = "anonymous";
+        oImg.selectable = false;
+        oImg.hoverCursor = '11';
+        canvas.add(oImg);
+      });
     },
   });
-
-  $("#detail").val(detail);
-  fabric.Image.fromURL(simage, function(oImg) {
-    canvas.setWidth(oImg.width);
-    canvas.setHeight(oImg.height);    
-    oImg.crossOrigin = "anonymous";
-    oImg.selectable = false;
-    oImg.hoverCursor = '11';
-    canvas.add(oImg);
-  });
   
+  //勾叉
   $('#checkbox').click(function (){
     isDrawingLine = false;
-
     fabric.Image.fromURL('../image/checkbox.png', function(oImg) {
       oImg.width = 60;
       oImg.height = 60;
@@ -104,6 +103,35 @@
     });
   })
 
+  //分数按钮
+  $('#zeropoints').click(function (){
+    $('#score').val("0");
+  })
+
+  $('#fullpoints').click(function (){
+    $('#score').val(fullScore);
+  })
+
+  //提交
+  $('#submit').click(function () {
+    var dataURL = canvas.toDataURL({
+      format: 'png',
+      multiplier: 1/1.25
+    });
+    var dataU = dataURL.substring(22);
+    var param = "userId=1234&time=0&paperId=" + paperId + "&topicId=" + topicId + "&point=" + $("#score").val() + "&image=" + dataU;
+    console.log(dataU);
+    $.ajax({
+      method:'post',
+      url:"../mark/store",
+      data: param,
+      success:function(data){
+      },
+    });
+    defaultScore = 0.0;    
+  })
+
+  //缩放
   $('#zoomout').click(function (){
     if (zoomTime > -maxTimes) {
       zoomTime -= 1;
@@ -117,44 +145,11 @@
       zoomIt(zoomInFactor);
     }
   })
-
-  $('#blackline').click(function (){
-    isDrawingLine = true;
-  })
-
-  $('#zeropoints').click(function (){
-    $('#score').val("0");
-  })
-
-  $('#fullpoints').click(function (){
-    $('#score').val(fullScore);
-  })
-
-  $('#submit').click(function () {
-    var dataURL = canvas.toDataURL({
-      format: 'png',
-      multiplier: 1/1.25
-    });
-    var dataU = dataURL.substring(22);
-    var param = "userId=1234&time=0&paperId=" + paperId + "&topicId=" + topicId + "&point=" + $("#score").val() + "&image=" + dataU;
-    console.log(dataU);
-    $.ajax({
-      method:'post',
-      url:"../mark/store",
-      data: param,
-      async: false,
-      success:function(data){
-      },
-    });
-    defaultScore = 0.0;    
-  })
-
-  //缩放函数
+  
   function zoomIt(factor) {
     canvas.setHeight(canvas.getHeight() * factor);
     canvas.setWidth(canvas.getWidth() * factor);
     if (canvas.backgroundImage) {
-        // Need to scale background images as well
         var bi = canvas.backgroundImage;
         bi.width = bi.width * factor; bi.height = bi.height * factor;
     }
@@ -182,9 +177,11 @@
   }
 
   //划线部分
-  var canvas = new fabric.Canvas('canvas', { selection: false });
-  var line, isDown;
+  $('#blackline').click(function (){
+    isDrawingLine = true;
+  })
 
+  var line, isDown;
   canvas.on('mouse:down', function(o){
     if (!isDrawingLine)
       return;
@@ -213,7 +210,7 @@
     isDown = false;
     isDrawingLine = false;
   });
-    /*var crossOriginImageObj = new Image();
+  /*var crossOriginImageObj = new Image();
   crossOriginImageObj.crossOrigin = "Anonymous";
   crossOriginImageObj.src = "test.png";
 
