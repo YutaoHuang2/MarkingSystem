@@ -135,10 +135,9 @@
       format: 'png',
       multiplier: 1/1.25
     });
-
-    var param = "userId=1234&time=0&paperId=" + paperId + "&topicId=" + topicId + "&point=" + $("#score").val() + "&image=" + dataURL.substring(22);
-    console.log(dataURL.length);
-    console.log(dataURL);
+    var dataU = dataURL.substring(22);
+    var param = "userId=1234&time=0&paperId=" + paperId + "&topicId=" + topicId + "&point=" + $("#score").val() + "&image=" + dataU;
+    console.log(dataU);
     $.ajax({
       method:'post',
       url:"../mark/store",

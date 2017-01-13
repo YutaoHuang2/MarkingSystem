@@ -22,9 +22,9 @@
 
         <button id="zoomin">放大</button>
         <button id="zoomout">缩小</button>
-        <input id="checkbox" type="image" src="checkbox.png" style="width:30px;height:30px"/>
-        <input id="cross" type="image" src="cross.png" style="width:30px;height:30px"/>
-        <input id="blackline" type="image" src="blackline.png" style="width:30px;height:30px"/>
+        <input id="checkbox" type="image" src="../image/checkbox.png" style="width:30px;height:30px"/>
+        <input id="cross" type="image" src="../image/cross.png" style="width:30px;height:30px"/>
+        <input id="blackline" type="image" src="../image/blackline.png" style="width:30px;height:30px"/>
       </div>
     </div>
     <div class="col-lg-1 right-side" >
@@ -37,8 +37,9 @@
 
       <button id="submit">提交</button>
       <button>有问题</button>
-      <textarea cols="20" rows="30">评分细则</textarea>
-      <input>asf</input>
+      分数<input></input>
+
+      <textarea cols="22" rows="30">评分细则</textarea>
     </div>
   </div>
 </div>
@@ -48,14 +49,11 @@
   var simage = 'data:image/png;base64,';
   $.ajax({
     method:'get',
-    url:"mark/getTopic",
+    url:"../mark/getTopic",
     data: "topicNum=2&userId=1234",
     async: false,
     success:function(data){
-		console.log(data);
-		console.log(data.id);
-        simage += data.dir;
-      
+      simage += data.dir;
     },
   });
   var isDrawingLine = false;
@@ -92,7 +90,7 @@
   $('#checkbox').click(function (){
     isDrawingLine = false;
 
-    fabric.Image.fromURL('checkbox.png', function(oImg) {
+    fabric.Image.fromURL('../image/checkbox.png', function(oImg) {
       oImg.width = 60;
       oImg.height = 60;
       oImg.hoverCursor = '11';
@@ -102,7 +100,7 @@
 
   $('#cross').click(function (){
     isDrawingLine = false;
-    fabric.Image.fromURL('cross.png', function(oImg) {
+    fabric.Image.fromURL('../image/cross.png', function(oImg) {
       oImg.width = 60;
       oImg.height = 60;
       oImg.hoverCursor = '11';
@@ -135,7 +133,19 @@
     });
 
     fabric.Image.fromURL(dataURL, function(oImg) {
-      console.log(dataURL);
+      $.ajax({
+        method:'get',
+        url:"../mark/getTopic",
+        data: "topicNum=2&userId=1234",
+        async: false,
+        success:function(data){
+        console.log(data);
+        console.log(data.id);
+            simage += data.dir;
+          
+        },
+      });
+      defaultScore = 0.0;
     });
     
   })
