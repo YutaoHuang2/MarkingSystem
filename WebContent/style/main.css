@@ -1,3 +1,24 @@
+.top_bar {
+	height: 45px;
+	background-color: #3fb4c6;
+}
+
+.left_side {
+	padding-top: 30px;
+}
+
+.right-side {
+	padding-top: 50px;
+}
+    
+canvas{
+	border: 1px solid black;
+}
+
+.col-lg-7 {
+	padding-top: 50px;
+}
+
 h1{
     color:#868686;
     font-size:2em;

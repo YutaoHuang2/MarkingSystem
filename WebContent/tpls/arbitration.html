@@ -50,8 +50,8 @@
             <li role="presentation"><a href="#">现场管理</a></li>
             <li role="presentation"><a href="#">&emsp;任务分配</a></li>
             <li role="presentation"><a href="#">&emsp;进度管理</a></li>
-            <li role="presentation" class="active"><a href="#">网上阅卷</a></li>
-            <li role="presentation"><a href="arbitration.html">阅卷仲裁</a></li>
+            <li role="presentation"><a href="marking.html">网上阅卷</a></li>
+            <li role="presentation" class="active"><a href="#">阅卷仲裁</a></li>
             <li role="presentation"><a href="#">查阅试卷</a></li>
             <li role="presentation"><a href="#">成绩汇总</a></li>                                                
           </ul>      
@@ -72,28 +72,32 @@
     		  <tr>
       			<th>细则</th>
       			<th>满分</th>
-      			<th>打分</th>
-      			<th>给分备注</th>
+      			<th>一评</th>
+      			<th>二评</th>
+      			<th>仲裁</th>
       		  </tr>
   			</thead>
   			<tbody>
     		  <tr>
       			<td>1</td>
       			<td>3</td>
+      			<td>2</td>
+      			<td>2</td>
       			<td><input type="number" step="any" class="q1" style="width: 100px;" value="0"></input></td>
-      			<td><input type="text" style="width: 100px;"></td>
       		  </tr>
     		  <tr>
+      			<td>1</td>
       			<td>2</td>
-      			<td>2</td>
+      			<td>1</td>
+      			<td>1</td>
       			<td><input type="number" step="any" class="q2" style="width: 100px;" value="0"></input></td>
-      			<td><input type="text" style="width: 100px;"></td>
-      		  </tr>      		  
+      		  </tr>    		  
     		  <tr>
       			<td>合计</td>
       			<td id="score">5</td>
+      			<td>3</td>
+      			<td>3</td>
       			<td>0</td>
-      			<td></td>
       		  </tr>      		  
   			</tbody>
 		  </table>
@@ -121,7 +125,7 @@
   	  	<button class="btn btn-default" id="submit">提交并下一题</button></br></br>
 
 		<p id="marked" style="font-weight:bold">已完成:23</p>
-		<p id="rest" style="font-weight:bold">需完成:43</p>
+		<p id="rest" style="font-weight:bold">需完成:43</p>		
       </div>
     </div>
   </div>
