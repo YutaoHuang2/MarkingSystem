@@ -42,7 +42,7 @@
             <li role="presentation"><a href="#">&emsp;角色管理</a></li>
             <li role="presentation"><a href="#">&emsp;用户信息</a></li>
             <li role="presentation"><a href="#">&emsp;资质信息</a></li>
-            <li role="presentation"><a href="profmanagement.html">&emsp;职业信息</a></li>
+            <li role="presentation"><a href="#">&emsp;职业信息</a></li>
             <li role="presentation"><a href="#">&emsp;等级信息</a></li>
             <li role="presentation"><a href="#">阅卷准备</a></li>
             <li role="presentation"><a href="#">&emsp;试卷信息</a></li>
@@ -50,84 +50,15 @@
             <li role="presentation"><a href="#">现场管理</a></li>
             <li role="presentation"><a href="#">&emsp;任务分配</a></li>
             <li role="presentation"><a href="#">&emsp;进度管理</a></li>
-            <li role="presentation"><a href="marking.html">网上阅卷</a></li>
-            <li role="presentation" class="active"><a href="#">阅卷仲裁</a></li>
+            <li role="presentation" class="active"><a href="#">网上阅卷</a></li>
+            <li role="presentation"><a href="arbitration.html">阅卷仲裁</a></li>
             <li role="presentation"><a href="#">查阅试卷</a></li>
             <li role="presentation"><a href="#">成绩汇总</a></li>                                                
           </ul>      
       </div>	
       <div class="col-lg-7 right-side">    
-        <div style=" float: left; width: 100%; height: 550px; overflow:scroll; ">
-          <canvas id="canvas" width="1" height="1"></canvas>
-        </div>
-        <div style="width: 100%;">
-          <button class="btn btn-default" id="zoomin">放大</button>
-          <button class="btn btn-default" id="zoomout">缩小</button>        
-        </div>
       </div>
       <div class="col-lg-3"></br></br>
-        <div>
-       	  <table class="table table-bordered"> 
-  			<thead>
-    		  <tr>
-      			<th>细则</th>
-      			<th>满分</th>
-      			<th>一评</th>
-      			<th>二评</th>
-      			<th>仲裁</th>
-      		  </tr>
-  			</thead>
-  			<tbody>
-    		  <tr>
-      			<td>1</td>
-      			<td>3</td>
-      			<td>2</td>
-      			<td>2</td>
-      			<td><input type="number" step="any" class="q1" style="width: 100px;" value="0"></input></td>
-      		  </tr>
-    		  <tr>
-      			<td>1</td>
-      			<td>2</td>
-      			<td>1</td>
-      			<td>1</td>
-      			<td><input type="number" step="any" class="q2" style="width: 100px;" value="0"></input></td>
-      		  </tr>    		  
-    		  <tr>
-      			<td>合计</td>
-      			<td id="score">5</td>
-      			<td>3</td>
-      			<td>3</td>
-      			<td>0</td>
-      		  </tr>      		  
-  			</tbody>
-		  </table>
-		  <button class="btn btn-default" >零分</button> 
-		  <button class="btn btn-default">满分</button></br></br>
-  	    </div>
-  	            
-              备注:</br>
-        <textarea type="text" style="width: 200px; "></textarea></br></br>  	    
-  	    
-  	       批注功能: 
-  	    <input id="checkbox" type="image" src="../image/checkbox.png" style="width:30px;height:30px"/>
-        <input id="cross" type="image" src="../image/cross.png" style="width:30px;height:30px"/>
-        <input id="blackline" type="image" src="../image/blackline.png" style="width:30px;height:30px"/> 
-        <button class="btn btn-default">重评</button></br></br>
-  	       
-  	       标注为:
-		<button class="btn btn-default">问题卷</button> 
-		<button class="btn btn-default">典型卷</button> 
-		<button class="btn btn-default">空白卷</button></br></br>
-		
-     	<button class="btn btn-default">标答</button>
-  	  	<button class="btn btn-default">样题</button>
-  	  	<button class="btn btn-default">保存</button>
-  	  	<button class="btn btn-default" id="submit">提交并下一题</button></br></br>
-
-		已完成:
-		<strong id="marked">45</strong>&emsp;&emsp;
-		 需完成:
-		 <strong id="rest">23</strong>	
       </div>
     </div>
   </div>

@@ -13,6 +13,8 @@ $(document).ready(function(){
   var simage = 'data:image/png;base64,';
   var canvas = new fabric.Canvas('canvas');
   
+  //试题评分细则
+  var detail = 
   //加载图片
   $.ajax({
     method: 'get',
