@@ -7,6 +7,10 @@
   
   <link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">  
   <link rel="stylesheet" href="../style/main.css" >
+    <link rel="stylesheet" type="text/css" href="../jquery-easyui-1.5.1/themes/default/easyui.css">
+    <link rel="stylesheet" type="text/css" href="../jquery-easyui-1.5.1/themes/icon.css">
+    <script type="text/javascript" src="../jquery-easyui-1.5.1/jquery.min.js"></script>
+    <script type="text/javascript" src="../jquery-easyui-1.5.1/jquery.easyui.min.js"></script>
 </head>
 <body>
   <div class="container-fluid">
@@ -59,55 +63,132 @@
       <div class="col-lg-7 right-side">   
       
         <div  style="margin-top:10px">
-          <table id="dg" class="table table-striped table-bordered"></table>
-        </div>  
-       
-        <div id="toolbar" style="float:right;margin-top:10px;">  
-        
-          <a href="javascript:void(0)" plain="true" onclick="import()">导入</a>  
-          <a href="javascript:void(0)" plain="true" onclick="newUser()">添加</a>  
-          <a href="javascript:void(0)" plain="true" onclick="save">保存</a>  
-          <a href="javascript:void(0)" plain="true" onclick="destroyUser()">删除</a>  
-          <a href="javascript:void(0)" plain="true" onclick="cancle()">取消</a>  
-        </div>  
+            <table id="dg" class="table table-striped table-bordered"></table>
+        </div>
+          <div id="toolbar" style="float:right;margin-top:10px">
+              <a href="javascript:void(0)" class="easyui-linkbutton" plain="true" onclick="import1()">导入</a>
+              <a href="javascript:void(0)" class="easyui-linkbutton" plain="true" onclick="newJob()">添加</a>
+              <a href="javascript:void(0)" class="easyui-linkbutton" plain="true" onclick="save()">保存</a>
+              <a href="javascript:void(0)" class="easyui-linkbutton" plain="true" onclick="destroyJob()">删除</a>
+              <a href="javascript:void(0)" class="easyui-linkbutton" plain="true" onclick="cancle()">取消</a>
+          </div>
+
       </div>
       <div class="col-lg-3"></br></br>
       </div>
     </div>
   </div>
-
-  <script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
-  <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-  <script src="http://cdn.bootcss.com/fabric.js/1.7.3/fabric.min.js" ></script>
-  <script src="../js/jquery.datagrid.js"></script>
-  <script src="../js/jquery.datagrid.bootstrap3.js"></script>
-  <script type="text/javascript">
-	  $( document ).ready( function() {
-  	  var jobdata = [{"jobID":"cccc","jobName":"cccc","start":"cccc"},{"jobID":"aaaa","jobName":"aaaa","start":"aaaa"},{"jobID":"bbbb","jobName":"bbbb","start":"bbbb"}];
-      var dgs = $( '#dg' ).datagrid({
-  		  data: jobdata,
-  		  col: [{
-  			 field: "jobID",
-  			 title: "职业ID",
-  			 sortable:true
-  		  },{
-  			 field: "jobName",
-  			 title: "职业名称",
-  			 sortable:true
-  		  },{
-  			 field: "start",
-  			 title: "启用",
-  			 sortable:true
-  		  }],
-        attr: { 
-          "class": "table table-bordered table-condensed"
-        },
-        fitColumns:true,
-        pagination:true,
-        sorter: "bootstrap",
-        pager: "bootstrap"
-      });
-	  })
-  </script>
 </body>
+<script type="text/javascript">
+    var editIndex = [];
+    var newNum=0;
+    $( document ).ready( function() {
+        var jobdata = [{"jobID":"cccc","jobName":"cccc","start":"cccc"},{"jobID":"aaaa","jobName":"aaaa","start":"aaaa"},{"jobID":"bbbb","jobName":"bbbb","start":"bbbb"}];
+        var dgs = $( '#dg' ).datagrid({
+            data: jobdata,
+            columns: [[{
+                field:"selected",
+                title:"选择",
+                width:100,
+                checkbox:true
+            },{
+                field: "jobID",
+                title: "职业ID",
+                width:100,
+                editor: {//设置其为可编辑
+                    type: 'text',//设置编辑样式 自带样式有：text，textarea，checkbox，numberbox，validatebox，datebox，combobox，combotree 可自行扩展
+                    options: {}
+                }
+            },{
+                field: "jobName",
+                title: "职业名称",
+                width:100,
+                editor: {//设置其为可编辑
+                    type: 'text',//设置编辑样式 自带样式有：text，textarea，checkbox，numberbox，validatebox，datebox，combobox，combotree 可自行扩展
+                    options: {}
+                }
+            },{
+                field: "start",
+                title: "启用",
+                width:130,
+                formatter:function(val,row,index){
+                    return '<a href="#" onclick="start('+index+')">启用</a>';
+                }
+            }]],
+            fitColumns:true,
+            pagination:true
+        });
+    })
+    // insert a new row at second row position
+    function newJob(){
+        var index=$('#dg').datagrid('appendRow',{
+                    jobID: '',
+                    jobName:'',
+                    start: ''
+                }).datagrid('getRows').length-1;
+        $('#dg').datagrid('beginEdit',index);
+        editIndex[newNum++]=index;
+    }
+    function start(index,row){
+        $('#dg').datagrid('selectRow',index);// 关键在这里
+        var row = $('#dg').datagrid('getSelected');
+        if (row){
+            alert(row.jobID);  //将jobid发送給后台，对该条数据设置为有效
+        }
+    }
+    function save(){
+        if(endEditing()){
+            if ($('#dg').datagrid('getChanges').length) {
+                var inserted = $('#dg').datagrid('getChanges', 'inserted');
+                var updated = $('#dg').datagrid('getChanges', "updated");
+                var effectRow = new Object();
+                if (inserted.length) {
+                    effectRow["inserted"] = JSON.stringify(inserted);
+                }
+                if (updated.length) {
+                    effectRow["updated"] = JSON.stringify(updated);
+                }
+            }
+
+        }
+//        $.post("/Home/Commit", effectRow, function (rsp) {
+//               if (rsp) {
+//                     $dg.datagrid('acceptChanges');
+//                     bindData();
+//                 }
+//             }, "JSON").error(function () {
+//                 $.messager.alert("提示", "提交错误了！");
+//            });
+
+             var json = [];
+             var loc;
+             $.each(inserted, function (i)
+             {
+             loc = {
+               "jobID":inserted[i].jobID,
+               "jobName": inserted[i].jobName
+             };
+             json.push(loc);
+             });
+             json = JSON.stringify(json); //转换成json数据
+             alert(json);
+
+    }
+    function endEditing() {
+        var flag = 0;
+        if (editIndex == []) {
+            return true
+        }
+        $.each(editIndex, function (i) {
+            if ($('#dg').datagrid('validateRow', editIndex[i])) {
+                $('#dg').datagrid('endEdit', editIndex[i]);
+                flag++;
+            }
+        })
+        if (flag == newNum)
+            return true;
+        else
+            return false;
+    }
+</script>
 </html>
