@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>在线阅卷系统</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css"> 
+  <link rel="stylesheet" href="../style/main.css" >
+    <link rel="stylesheet" type="text/css" href="../jquery-easyui-1.5.1/themes/default/easyui.css">
+    <link rel="stylesheet" type="text/css" href="../jquery-easyui-1.5.1/themes/icon.css">
+    <script type="text/javascript" src="../jquery-easyui-1.5.1/jquery.min.js"></script>
+    <script type="text/javascript" src="../jquery-easyui-1.5.1/jquery.easyui.min.js"></script>
+</head>
+<body>
+  <div class="container-fluid">
+		<div class="row top_bar">
+			<div class="col-md-1">				
+			</div>
+			<div class="col-md-9"></div>
+			<div class="col-lg-2">
+				<div class="dropdown">
+					<button type="button" class="btn dropdown-toggle btn-lg"
+						id="dropdownMenu1" data-toggle="dropdown">
+						用户:1234
+						<span class="caret"></span>
+					</button>
+					<ul class="dropdown-menu" role="menu"
+						aria-labelledby="dropdownMenu1">
+						<li role="presentation"><a role="menuitem" tabindex="-1"
+							href="../index.html">退出登录</a></li>
+						<li role="presentation"><a role="menuitem" tabindex="-1"
+							href="#">修改信息</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+  </div>
+
+  <div class="container-fluid" style="font-size:16px">
+    <div class="row-fluid">
+      <div class="col-lg-2" style="padding-top: 10px;">
+          <ul class="nav nav-pills nav-stacked" style="font-size:12px">
+            <li role="presentation"><a href="#">参数设置</a></li>
+            <li role="presentation"><a href="#">&emsp;功能管理</a></li>
+            <li role="presentation"><a href="#">&emsp;角色管理</a></li>
+            <li role="presentation"><a href="personInformation.html">&emsp;用户信息</a></li>
+            <li role="presentation" class="active"><a href="#">&emsp;资质信息</a></li>
+            <li role="presentation"><a href="profmanagement.html">&emsp;职业信息</a></li>
+            <li role="presentation"><a href="#">&emsp;等级信息</a></li>
+            <li role="presentation"><a href="#">阅卷准备</a></li>
+            <li role="presentation"><a href="paperManage.html">&emsp;试卷信息</a></li>
+            <li role="presentation"><a href="stuInforManage.html">&emsp;考生信息</a></li>
+            <li role="presentation"><a href="#">现场管理</a></li>
+            <li role="presentation"><a href="#">&emsp;任务分配</a></li>
+            <li role="presentation"><a href="#">&emsp;进度管理</a></li>
+            <li role="presentation"><a href="marking.html">网上阅卷</a></li>
+            <li role="presentation"><a href="arbitration.html">阅卷仲裁</a></li>
+            <li role="presentation"><a href="#">查阅试卷</a></li>
+            <li role="presentation"><a href="#">成绩汇总</a></li>                                              
+          </ul>      
+      </div>	
+      <div class="col-lg-10 right-side">
+          <p class="biao"><a>首页></a><a>资质信息</a></p>
+          <div class="row" style="width:80%;margin-top:10px">
+              <div class="col-xs-12" style="margin-top:10px">
+                  <table id="dg" class="table table-striped table-bordered"></table>
+              </div>
+
+              <div id="toolbar" style="float:right;margin-top:10px">
+                  <a href="javascript:void(0)" class="easyui-linkbutton" plain="true" onclick="newUser()">添加资质</a>
+                  <a href="javascript:void(0)" class="easyui-linkbutton" plain="true" onclick="destroyUser()">删除</a>
+                  <a href="javascript:void(0)" class="easyui-linkbutton" plain="true" onclick="cancle()">取消</a>
+              </div>
+          </div>
+      </div>
+      <div class="col-lg-3"></br></br>
+      </div>
+    </div>
+  </div>
+  <script type="text/javascript">
+    $( document ).ready( function() {
+        var paperdata=[{"select":"cccc","paperNum":"cccc","paperID":"cccc","paperName":"cccc","job":"cccc","grade":"cccc","module":"cccc","project":"cccc","pageNum":"cccc","state":"cccc","others":"cccc"},
+            {"select":"cccc","paperNum":"cccc","paperID":"cccc","paperName":"cccc","job":"cccc","grade":"cccc","module":"cccc","project":"cccc","pageNum":"cccc","state":"cccc","others":"cccc"}];
+        var dgs = $( '#dg' ).datagrid({
+            data:paperdata,
+            columns: [[{
+                field: "jobID",
+                title: "选择",
+                width:120
+            },{
+                field: "jobName",
+                title: "序号",
+                width:150
+            },{
+                field: "start",
+                title: "姓名",
+                width:150
+            },{
+                field: "jobName",
+                title: "单位",
+                width:100
+            },{
+                field: "start",
+                title: "职业名称",
+                width:100
+            },{
+                field: "jobName",
+                title: "等级名称",
+                width:100
+            }]],
+            fitColumns:true,
+            pagination:true
+
+        });
+    })
+</script>
+</body>
+</html>
