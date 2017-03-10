@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>在线阅卷系统</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css"> 
+  <link rel="stylesheet" href="../style/main.css" >
+</head>
+<body>
+  <div class="container-fluid">
+		<div class="row top_bar">
+			<div class="col-md-1">				
+			</div>
+			<div class="col-md-9"></div>
+			<div class="col-lg-2">
+				<div class="dropdown">
+					<button type="button" class="btn dropdown-toggle btn-lg"
+						id="dropdownMenu1" data-toggle="dropdown">
+						用户:1234
+						<span class="caret"></span>
+					</button>
+					<ul class="dropdown-menu" role="menu"
+						aria-labelledby="dropdownMenu1">
+						<li role="presentation"><a role="menuitem" tabindex="-1"
+							href="../index.html">退出登录</a></li>
+						<li role="presentation"><a role="menuitem" tabindex="-1"
+							href="#">修改信息</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+  </div>
+
+  <div class="container-fluid" style="font-size:16px">
+    <div class="row-fluid">
+      <div class="col-lg-2" style="padding-top: 10px;">
+          <ul class="nav nav-pills nav-stacked" style="font-size:12px">
+            <li role="presentation"><a href="#">参数设置</a></li>
+            <li role="presentation"><a href="#">&emsp;功能管理</a></li>
+            <li role="presentation"><a href="#">&emsp;角色管理</a></li>
+            <li role="presentation"><a href="#">&emsp;用户信息</a></li>
+            <li role="presentation"><a href="#">&emsp;资质信息</a></li>
+            <li role="presentation"><a href="#">&emsp;职业信息</a></li>
+            <li role="presentation"><a href="#">&emsp;等级信息</a></li>
+            <li role="presentation"><a href="#">阅卷准备</a></li>
+            <li role="presentation"><a href="#">&emsp;试卷信息</a></li>
+            <li role="presentation"><a href="#">&emsp;考生信息</a></li>
+            <li role="presentation"><a href="#">现场管理</a></li>
+            <li role="presentation"><a href="#">&emsp;任务分配</a></li>
+            <li role="presentation"><a href="#">&emsp;进度管理</a></li>
+            <li role="presentation" class="active"><a href="#">网上阅卷</a></li>
+            <li role="presentation"><a href="arbitration.html">阅卷仲裁</a></li>
+            <li role="presentation"><a href="#">查阅试卷</a></li>
+            <li role="presentation"><a href="#">成绩汇总</a></li>                                                
+          </ul>      
+      </div>	
+      <div class="col-lg-7 right-side">    
+      </div>
+      <div class="col-lg-3"></br></br>
+      </div>
+    </div>
+  </div>
+
+  <script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
+  <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="http://cdn.bootcss.com/fabric.js/1.7.3/fabric.min.js" ></script>
+  <script src="../js/marking.js"></script>
+</body>
+</html>

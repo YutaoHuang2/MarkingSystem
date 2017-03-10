@@ -69,7 +69,7 @@
               <a href="javascript:void(0)" class="easyui-linkbutton" plain="true" onclick="import1()">导入</a>
               <a href="javascript:void(0)" class="easyui-linkbutton" plain="true" onclick="newJob()">添加</a>
               <a href="javascript:void(0)" class="easyui-linkbutton" plain="true" onclick="save()">保存</a>
-              <a href="javascript:void(0)" class="easyui-linkbutton" plain="true" onclick="destroyJob()">删除</a>
+              <a href="javascript:void(0)" class="easyui-linkbutton" plain="true" onclick="deleteJob()">删除</a>
               <a href="javascript:void(0)" class="easyui-linkbutton" plain="true" onclick="cancle()">取消</a>
           </div>
 
@@ -172,6 +172,7 @@
              });
              json = JSON.stringify(json); //转换成json数据
              alert(json);
+             $('#dg').datagrid('acceptChanges');
 
     }
     function endEditing() {
@@ -189,6 +190,21 @@
             return true;
         else
             return false;
+    }
+    function deleteJob(){
+        var row=[];
+        row = $('#dg').datagrid('getSelections');
+        for (var i = row.length - 1; i >= 0; i--) {
+            var index = $('#dg').datagrid('getRowIndex',row[i]);
+            $('#dg').datagrid('deleteRow', index);
+            $('#dg').datagrid('acceptChanges');
+            alert(row[i].jobID);
+        }
+
+    }
+    function cancle() {
+//        $('#dg').datagrid('cancelEdit');
+        $('#dg').datagrid('rejectChanges');
     }
 </script>
 </html>
