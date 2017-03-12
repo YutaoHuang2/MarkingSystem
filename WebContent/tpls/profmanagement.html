@@ -82,17 +82,25 @@
 <script type="text/javascript">
     var editIndex = [];
     var newNum=0;
+    var professionInfo;
+    $.ajax({
+      method: 'get',
+      url: "../new/professionInfo",
+      success: function(data) {
+        professionInfo = data;
+      },
+    });
     $( document ).ready( function() {
-        var jobdata = [{"jobID":"cccc","jobName":"cccc","start":"cccc"},{"jobID":"aaaa","jobName":"aaaa","start":"aaaa"},{"jobID":"bbbb","jobName":"bbbb","start":"bbbb"}];
-        var dgs = $( '#dg' ).datagrid({
-            data: jobdata,
+        professionInfo = [{"professionId":"cccc","professionName":"cccc","startUse":"cccc"}];
+        var dgs = $( '#dg' ).datagrid({ 
+            data: professionInfo,
             columns: [[{
                 field:"selected",
                 title:"选择",
                 width:100,
                 checkbox:true
             },{
-                field: "jobID",
+                field: "professionId",
                 title: "职业ID",
                 width:100,
                 editor: {//设置其为可编辑
@@ -100,7 +108,7 @@
                     options: {}
                 }
             },{
-                field: "jobName",
+                field: "professionName",
                 title: "职业名称",
                 width:100,
                 editor: {//设置其为可编辑
@@ -108,7 +116,7 @@
                     options: {}
                 }
             },{
-                field: "start",
+                field: "startUse",
                 title: "启用",
                 width:130,
                 formatter:function(val,row,index){
