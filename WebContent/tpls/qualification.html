@@ -68,8 +68,9 @@
               </div>
 
               <div id="toolbar" style="float:right;margin-top:10px">
-                  <a href="javascript:void(0)" class="easyui-linkbutton" plain="true" onclick="newUser()">添加资质</a>
-                  <a href="javascript:void(0)" class="easyui-linkbutton" plain="true" onclick="destroyUser()">删除</a>
+                  <a href="addQualification.html" class="easyui-linkbutton" plain="true" onclick="newQualification()">添加资质</a>
+                  <a href="javascript:void(0)" class="easyui-linkbutton" plain="true" onclick="save()">保存</a>
+                  <a href="javascript:void(0)" class="easyui-linkbutton" plain="true" onclick="deleteQualification()">删除</a>
                   <a href="javascript:void(0)" class="easyui-linkbutton" plain="true" onclick="cancle()">取消</a>
               </div>
           </div>
@@ -79,41 +80,137 @@
     </div>
   </div>
   <script type="text/javascript">
+      var editIndex = [];
+      var newNum=0;
     $( document ).ready( function() {
-        var paperdata=[{"select":"cccc","paperNum":"cccc","paperID":"cccc","paperName":"cccc","job":"cccc","grade":"cccc","module":"cccc","project":"cccc","pageNum":"cccc","state":"cccc","others":"cccc"},
+        var paperdata=[{"selected":"cccc","paperNum":"cccc","paperID":"cccc","paperName":"cccc","job":"cccc","grade":"cccc","module":"cccc","project":"cccc","pageNum":"cccc","state":"cccc","others":"cccc"},
             {"select":"cccc","paperNum":"cccc","paperID":"cccc","paperName":"cccc","job":"cccc","grade":"cccc","module":"cccc","project":"cccc","pageNum":"cccc","state":"cccc","others":"cccc"}];
         var dgs = $( '#dg' ).datagrid({
             data:paperdata,
             columns: [[{
-                field: "jobID",
-                title: "选择",
-                width:120
+                field:"selected",
+                title:"选择",
+                width:100,
+                checkbox:true
             },{
-                field: "jobName",
+                field: "quaID",
                 title: "序号",
-                width:150
+                width:150,
+                editor: {//设置其为可编辑
+                    type: 'text',//设置编辑样式 自带样式有：text，textarea，checkbox，numberbox，validatebox，datebox，combobox，combotree 可自行扩展
+                    options: {}
+                }
             },{
-                field: "start",
+                field: "name",
                 title: "姓名",
-                width:150
+                width:150,
+                editor: {//设置其为可编辑
+                    type: 'text',//设置编辑样式 自带样式有：text，textarea，checkbox，numberbox，validatebox，datebox，combobox，combotree 可自行扩展
+                    options: {}
+                }
+
             },{
-                field: "jobName",
+                field: "office",
                 title: "单位",
-                width:100
-            },{
-                field: "start",
-                title: "职业名称",
-                width:100
+                width:100,
+                editor: {//设置其为可编辑
+                    type: 'text',//设置编辑样式 自带样式有：text，textarea，checkbox，numberbox，validatebox，datebox，combobox，combotree 可自行扩展
+                    options: {}
+                }
             },{
                 field: "jobName",
+                title: "职业名称",
+                width:100,
+                editor: {//设置其为可编辑
+                    type: 'text',//设置编辑样式 自带样式有：text，textarea，checkbox，numberbox，validatebox，datebox，combobox，combotree 可自行扩展
+                    options: {}
+                }
+            },{
+                field: "gradeName",
                 title: "等级名称",
-                width:100
+                width:100,
+                editor: {//设置其为可编辑
+                    type: 'text',//设置编辑样式 自带样式有：text，textarea，checkbox，numberbox，validatebox，datebox，combobox，combotree 可自行扩展
+                    options: {}
+                }
             }]],
             fitColumns:true,
             pagination:true
-
         });
     })
+//      function newQualification(){
+//          var index=$('#dg').datagrid('appendRow',{
+//                      jobID: '',
+//                      jobName:'',
+//                      start: ''
+//                  }).datagrid('getRows').length-1;
+//          $('#dg').datagrid('beginEdit',index);
+//          editIndex[newNum++]=index;
+//      }
+//      function save(){
+//          if(endEditing()){
+//              if ($('#dg').datagrid('getChanges').length) {
+//                  var inserted = $('#dg').datagrid('getChanges', 'inserted');
+//                  var updated = $('#dg').datagrid('getChanges', "updated");
+//                  var effectRow = new Object();
+//                  if (inserted.length) {
+//                      effectRow["inserted"] = JSON.stringify(inserted);
+//                  }
+//                  if (updated.length) {
+//                      effectRow["updated"] = JSON.stringify(updated);
+//                  }
+//              }
+//
+//          }
+//          var json = [];
+//          var loc;
+//          $.each(inserted, function (i)
+//          {
+//              loc = {
+//                  "select":inserted[i].select,
+//                  "quaID": inserted[i].quaID,
+//                  "name":inserted[i].name,
+//                  "office": inserted[i].office,
+//                  "jobName":inserted[i].jobName,
+//                  "gradeName": inserted[i].gradeName
+//              };
+//              json.push(loc);
+//          });
+//          json = JSON.stringify(json); //转换成json数据
+//          alert(json);
+//          $('#dg').datagrid('acceptChanges');
+//      }
+      function endEditing() {
+          var flag = 0;
+          if (editIndex == []) {
+              return true
+          }
+          $.each(editIndex, function (i) {
+              if ($('#dg').datagrid('validateRow', editIndex[i])) {
+                  $('#dg').datagrid('endEdit', editIndex[i]);
+                  flag++;
+              }
+          })
+          if (flag == newNum)
+              return true;
+          else
+              return false;
+      }
+      function deleteQualification(){
+          var row=[];
+          row = $('#dg').datagrid('getSelections');
+          for (var i = row.length - 1; i >= 0; i--) {
+              var index = $('#dg').datagrid('getRowIndex',row[i]);
+              $('#dg').datagrid('deleteRow', index);
+              $('#dg').datagrid('acceptChanges');
+              alert(row[i].jobID);
+          }
+
+      }
+      function cancle() {
+//        $('#dg').datagrid('cancelEdit');
+          $('#dg').datagrid('rejectChanges');
+      }
 </script>
 </body>
 </html>
