@@ -9,6 +9,7 @@
   <link rel="stylesheet" href="../style/main.css" >
     <link rel="stylesheet" type="text/css" href="../jquery-easyui-1.5.1/themes/default/easyui.css">
     <link rel="stylesheet" type="text/css" href="../jquery-easyui-1.5.1/themes/icon.css">
+    <link rel="stylesheet" href="../style/datagrid.css" >
     <script type="text/javascript" src="../jquery-easyui-1.5.1/jquery.min.js"></script>
     <script type="text/javascript" src="../jquery-easyui-1.5.1/jquery.easyui.min.js"></script>
 </head>
@@ -67,7 +68,7 @@
                       <form class="form-inline">
                           <span>试卷名称：</span>
                           <div class="input-group" class="col-xs-3" style="width:60%">
-                              <input type="text" class="form-control" >
+                              <input type="text" class="form-control" id="paperName">
                           </div>
                       </form>
                   </div>
@@ -75,7 +76,7 @@
                       <form class="form-inline">
                           <span>职业：</span>
                           <div class="input-group" class="col-xs-2" style="width:60%">
-                              <input type="text" class="form-control" >
+                              <input type="text" class="form-control" id="profession">
                           </div>
                       </form>
                   </div>
@@ -83,7 +84,7 @@
                       <form class="form-inline">
                           <span>等级：</span>
                           <div class="input-group" class="col-xs-2" style="width:60%">
-                              <input type="text" class="form-control" >
+                              <input type="text" class="form-control" id="rank">
                           </div>
                       </form>
                   </div>
@@ -92,7 +93,7 @@
                       <form class="form-inline">
                           <span>状态：</span>
                           <div class="input-group" class="col-xs-2" style="width:60%">
-                              <input type="text" class="form-control" >
+                              <input type="text" class="form-control" id="status">
                           </div>
                       </form>
                   </div>
@@ -132,13 +133,13 @@
       $.ajax({
         method: 'get',
         url: "../new/paperInfo",
-        data: "name=2&userId=1234",
+        dataType: "json",
         success: function(data) {
           var paperdata = data;
           fillTable(paperdata);
         },
       });
-      var paperdata=[{"select":"cccc","paperNum":"cccc","paperID":"cccc","paperName":"cccc","profession":"cccc","rank":"cccc","module":"cccc","project":"cccc","totalpage":"cccc","status":"cccc","remark":"cccc"}];
+      var paperdata=[{"paperName":"cccc","profession":"cccc","paperID":"cccc","paperNum":"cccc","rank":"cccc","module":"cccc","project":"cccc","totalpage":"cccc","status":"cccc","remark":"cccc"}];
       fillTable(paperdata);
     })
 
@@ -146,21 +147,22 @@
       $.ajax({
         method: 'get',
         url: "../new/paperQuery",
-        data: "name=2&userId=1234",
+        data: {paperName:$("#paperName").val(), profession:$("#profession").val(),rank:$("#rank").val(),status:$("#status").val()},
         success: function(data) {
           var paperdata = data;
           fillTable(paperdata)
-        },
-      });      
-    })
+        }
+      });
+    });
 
     function fillTable(tbdata) {
       var dgs = $( '#dg' ).datagrid({
         data:tbdata,
         columns: [[{
-            field: "select",
-            title: "选择",
-            width:80
+            field:"selected",
+            title:"选择",
+            width:100,
+            checkbox:true
         },{
             field: "paperNum",
             title: "序号",
