@@ -124,38 +124,38 @@
   </div>
 </body>
 <script type="text/javascript">
+    $( document ).ready( function() {
+      $.ajax({
+        method: 'get',
+        url: "../new/personInfo",
+        success: function(data) {
+          var personinfo = data;
+          fillTable(personinfo);
+        }
+      });
+      var personinfo = [{"jobID":"cccc","userId":"cccc","userName":"name","name":"cccc","company":"cccc","phoneNumber":"cccc","roleName":"cccc","quality":"cccc"}];
+      fillTable(personinfo);  
+    })
+    
     var editIndex = [];
     var newNum = 0;
-    var personinfo;
-    $.ajax({
-      method: 'get',
-      url: "../new/personInfo",
-      success: function(data) {
-        personinfo = data;
-      },
-    });
     $('#search').click(function() {
       $.ajax({
         method: 'get',
         url: "../new/personQuery",
         data: "name=2&userId=1234",
         success: function(data) {
-          personinfo = data;
+          var personinfo = data;
           fillTable(personinfo)
         },
       });      
-    })
-
-    $( document ).ready( function() {
-        personinfo = [{"jobID":"cccc","userId":"cccc","userName":"name","name":"cccc","company":"cccc","phoneNumber":"cccc","roleName":"cccc","quality":"cccc"}];
-        fillTable(personinfo)
     })
 
     function fillTable(tbdata) {
       var dgs = $( '#dg' ).datagrid({
         data: tbdata,
         columns: [[{
-            field: "jobID",
+            field: "selected",
             title: "选择",
             width:90
         },{

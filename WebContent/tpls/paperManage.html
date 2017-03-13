@@ -100,7 +100,7 @@
                   <div class="col-xs-2">
                       <form class="form-inline">
                           <div class="form-group">
-                              <button class="btn btn-default" type="button">查找</button>
+                              <button class="btn btn-default" type="button" id="search">查找</button>
                               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                               <button class="btn btn-default" type="button">清空</button>
                           </div>
@@ -129,60 +129,83 @@
   </div>
   <script type="text/javascript">
     $( document ).ready( function() {
-        var paperdata=[{"select":"cccc","paperNum":"cccc","paperID":"cccc","paperName":"cccc","job":"cccc","grade":"cccc","module":"cccc","project":"cccc","pageNum":"cccc","state":"cccc","others":"cccc"},
-            {"select":"cccc","paperNum":"cccc","paperID":"cccc","paperName":"cccc","job":"cccc","grade":"cccc","module":"cccc","project":"cccc","pageNum":"cccc","state":"cccc","others":"cccc"}];
-        var dgs = $( '#dg' ).datagrid({
-            data:paperdata,
-            columns: [[{
-                field: "select",
-                title: "选择",
-                width:80
-            },{
-                field: "paperNum",
-                title: "序号",
-                width:80
-            },{
-                field: "paperID",
-                title: "试卷ID",
-                width:90
-            },{
-                field: "paperName",
-                title: "试卷名称",
-                width:90
-            },{
-                field: "job",
-                title: "职业",
-                width:90
-            },{
-                field: "grade",
-                title: "等级",
-                width:80
-            },{
-                field: "module",
-                title: "模块",
-                width:80
-            },{
-                field: "project",
-                title: "项目",
-                width:80
-            },{
-                field: "pageNum",
-                title: "页数",
-                width:80
-            },{
-                field: "state",
-                title: "状态",
-                width:80
-            },{
-                field: "others",
-                title: "备注",
-                width:90
-            }]],
-            fitColumns:true,
-            pagination:true
-
-        });
+      $.ajax({
+        method: 'get',
+        url: "../new/paperInfo",
+        data: "name=2&userId=1234",
+        success: function(data) {
+          var paperdata = data;
+          fillTable(paperdata);
+        },
+      });
+      var paperdata=[{"select":"cccc","paperNum":"cccc","paperID":"cccc","paperName":"cccc","profession":"cccc","rank":"cccc","module":"cccc","project":"cccc","totalpage":"cccc","status":"cccc","remark":"cccc"}];
+      fillTable(paperdata);
     })
+
+    $('#search').click(function() {
+      $.ajax({
+        method: 'get',
+        url: "../new/paperQuery",
+        data: "name=2&userId=1234",
+        success: function(data) {
+          var paperdata = data;
+          fillTable(paperdata)
+        },
+      });      
+    })
+
+    function fillTable(tbdata) {
+      var dgs = $( '#dg' ).datagrid({
+        data:tbdata,
+        columns: [[{
+            field: "select",
+            title: "选择",
+            width:80
+        },{
+            field: "paperNum",
+            title: "序号",
+            width:80
+        },{
+            field: "paperID",
+            title: "试卷ID",
+            width:90
+        },{
+            field: "paperName",
+            title: "试卷名称",
+            width:90
+        },{
+            field: "profession",
+            title: "职业",
+            width:90
+        },{
+            field: "rank",
+            title: "等级",
+            width:80
+        },{
+            field: "module",
+            title: "模块",
+            width:80
+        },{
+            field: "project",
+            title: "项目",
+            width:80
+        },{
+            field: "totalpage",
+            title: "页数",
+            width:80
+        },{
+            field: "status",
+            title: "状态",
+            width:80
+        },{
+            field: "remark",
+            title: "备注",
+            width:90
+        }]],
+        fitColumns:true,
+        pagination:true
+      });
+    }
 </script>
 </body>
 </html>

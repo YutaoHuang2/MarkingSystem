@@ -25,7 +25,7 @@ $(document).ready(function(){
       fullScore = data.fullMark;
       paperId = data.paperId;
       topicId = data.topicNum;
-      $("#detail").val(data.detail);
+      detail = data.detail;
       //在canvas中添加图片
       fabric.Image.fromURL(simage, function(oImg) {
         canvas.setWidth(oImg.width);
@@ -68,6 +68,7 @@ $(document).ready(function(){
     $('#score').val(fullScore);
   })
   
+  //提交
   $('#submit').click(function() {
     var dataURL = canvas.toDataURL({
       format: 'png',
