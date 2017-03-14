@@ -16,7 +16,7 @@ $(document).ready(function(){
   $.ajax({
     method: 'get',
     url: "../mark/getTopic",
-    data: "topicNum=2&userId=1234",
+    data: "userId=1234",
     success: function(data) {
       simage += data.dir;
       fullScore = data.fullMark;

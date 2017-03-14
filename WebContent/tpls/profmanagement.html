@@ -84,15 +84,16 @@
     var editIndex = [];
     var newNum=0;
     var professionInfo;
-    $.ajax({
-      method: 'get',
-      url: "../new/professionInfo",
-      success: function(data) {
-        professionInfo = data;
-      }
-    });
+
     $( document ).ready( function() {
-        professionInfo = [{"professionId":"cccc","professionName":"cccc","startUse":"cccc"}];
+	    $.ajax({
+		      method: 'get',
+		      url: "../new/professionInfo",
+		      success: function(data) {
+		        professionInfo = data;
+		      }
+		    });
+        //professionInfo = [{"professionId":"cccc","professionName":"cccc","startUse":"cccc"}];
         var dgs = $( '#dg' ).datagrid({ 
             data: professionInfo,
             columns: [[{

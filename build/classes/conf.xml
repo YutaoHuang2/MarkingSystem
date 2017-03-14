@@ -31,6 +31,16 @@
         <mapper class="org.dclab.mapping.MarkMapperI"/>
         <mapper class="org.dclab.mapping.PaperMapperI"/>
         <mapper class="org.dclab.mapping.TempleMapperI"/>
+        <mapper class="org.dclab.mapping.CandidateMapperI"/>
+        <mapper	class="org.dclab.mapping.PaperAnswerMapperI"/>
+        <mapper	class="org.dclab.mapping.paperQueMapperI"/>
+        <mapper class="org.dclab.mapping.PersonInfoMapperI"/>
+        <mapper class="org.dclab.mapping.ProfessionMapperI" />
+        <mapper	class="org.dclab.mapping.QualityMapperI"/>
+        <mapper	class="org.dclab.mapping.RankMapperI"/>
+        <mapper	class="org.dclab.mapping.PaperScoreMapperI"/>
+        <mapper	class="org.dclab.mapping.PaperScoreTaskMapperI"/>
+        
         
     </mappers>
     
