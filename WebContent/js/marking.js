@@ -1,20 +1,17 @@
 $(document).ready(function(){
-  
   var isDrawingLine = false;
   var zoomInFactor = 1.1;
   var zoomOutFactor = 1 / zoomInFactor;
   var zoomTime = 0;
   var maxTimes = 3;
   var defaultScore = 0.0;
+  var papertype = 0;
   var fullScore;
   var paperId;
   var topicId;
   var detail;
   var simage = 'data:image/png;base64,';
   var canvas = new fabric.Canvas('canvas');
-  
-  //试题评分细则
-  var detail = 
   //加载图片
   $.ajax({
     method: 'get',
@@ -25,7 +22,7 @@ $(document).ready(function(){
       fullScore = data.fullMark;
       paperId = data.paperId;
       topicId = data.topicNum;
-      detail = data.detail;
+
       //在canvas中添加图片
       fabric.Image.fromURL(simage, function(oImg) {
         canvas.setWidth(oImg.width);
@@ -37,7 +34,80 @@ $(document).ready(function(){
       });
     },
   });
-  
+  //阅卷细则表格
+  var tbdata=[{"detail":"cccc","fullmark":"cccc","mark":"asdf","remark":""}];
+  var dgs = $( '#dg' ).datagrid({
+    data:tbdata,
+    columns: [[{
+        field: "detail",
+        title: "细则",
+        width:80
+    },{
+        field: "fullmark",
+        title: "满分",
+        width:80
+    },{
+        field: "mark",
+        title: "打分",
+        width:90,
+        editor: {
+          type: 'numberbox',
+          options: {}
+        }
+    },{
+        field: "remark",
+        title: "备注",
+        width:90,
+        editor: {
+          type: 'text',
+          options: {}
+        }
+    }]],
+    fitColumns:true
+  });
+  $('#dg').datagrid('beginEdit',0);
+
+  //仲裁细则表格
+  var tbdata=[{"detail":"cccc","fullmark":"cccc","first":"cccc","second":"cccc","arbitration":"cccc"}];
+  var dgs = $( '#adg' ).datagrid({
+    data:tbdata,
+    columns: [[{
+        field: "detail",
+        title: "细则",
+        width:80
+    },{
+        field: "fullmark",
+        title: "满分",
+        width:80
+    },{
+        field: "first",
+        title: "一评",
+        width:90,
+        editor: {
+          type: 'numberbox',
+          options: {}
+        }
+    },{
+        field: "second",
+        title: "二评",
+        width:90,
+        editor: {
+          type: 'numberbox',
+          options: {}
+        }
+    },{
+        field: "arbitration",
+        title: "仲裁",
+        width:90,
+        editor: {
+          type: 'numberbox',
+          options: {}
+        }
+    }]],
+    fitColumns:true
+  });
+  $('#adg').datagrid('beginEdit',0);
+
   //勾叉
   $('#checkbox').click(function() {
     isDrawingLine = false;
@@ -48,7 +118,6 @@ $(document).ready(function(){
       canvas.add(oImg);
     });
   })
-  
   $('#cross').click(function() {
     isDrawingLine = false;
     fabric.Image.fromURL('../image/cross.png', function(oImg) {
@@ -59,16 +128,38 @@ $(document).ready(function(){
     });
   })
   
+  //试卷类型
+  $('#questionable').click(function() {
+    $('#questionable').attr("class", "btn btn-info");
+    $('#blank').attr("class", "btn btn-default");
+    $('#typical').attr("class", "btn btn-default");
+    papertype = 0;
+  })
+
+  $('#typical').click(function() {
+    $('#questionable').attr("class", "btn btn-default");
+    $('#blank').attr("class", "btn btn-default");
+    $('#typical').attr("class", "btn btn-info");    
+    papertype = 1;
+  })
+
+  $('#blank').click(function() {
+    $('#questionable').attr("class", "btn btn-default");
+    $('#blank').attr("class", "btn btn-info");
+    $('#typical').attr("class", "btn btn-default");    
+    papertype = 2;
+  })
+
   //分数按钮
   $('#zeropoints').click(function() {
     $('#score').val("0");
   })
-  
+
   $('#fullpoints').click(function() {
     $('#score').val(fullScore);
   })
   
-  //提交
+  //提交按钮
   $('#submit').click(function() {
     var dataURL = canvas.toDataURL({
       format: 'png',
@@ -93,7 +184,7 @@ $(document).ready(function(){
       zoomIt(zoomOutFactor);
     }
   })
-  
+
   $('#zoomin').click(function() {
     if (zoomTime < maxTimes) {
       zoomTime += 1;

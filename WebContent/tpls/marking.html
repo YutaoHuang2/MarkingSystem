@@ -5,8 +5,15 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   
-  <link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css"> 
+  <link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">  
   <link rel="stylesheet" href="../style/main.css" >
+  <link rel="stylesheet" type="text/css" href="../jquery-easyui-1.5.1/themes/default/easyui.css">
+  <link rel="stylesheet" type="text/css" href="../jquery-easyui-1.5.1/themes/icon.css">
+  <script src="../jquery-easyui-1.5.1/jquery.min.js"></script>
+  <script src="../jquery-easyui-1.5.1/jquery.easyui.min.js"></script>
+  <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="http://cdn.bootcss.com/fabric.js/1.7.3/fabric.min.js" ></script>
+  <script src="../js/marking.js"></script> 
 </head>
 <body>
   <div class="container-fluid">
@@ -67,36 +74,7 @@
       </div>
       <div class="col-lg-3"></br></br>
         <div>
-       	  <table class="table table-bordered"> 
-  			<thead>
-    		  <tr>
-      			<th>细则</th>
-      			<th>满分</th>
-      			<th>打分</th>
-      			<th>给分备注</th>
-      		  </tr>
-  			</thead>
-  			<tbody>
-    		  <tr>
-      			<td>1</td>
-      			<td>3</td>
-      			<td><input type="number" step="any" class="q1" style="width: 100px;" value="0"></input></td>
-      			<td><input type="text" style="width: 100px;"></td>
-      		  </tr>
-    		  <tr>
-      			<td>2</td>
-      			<td>2</td>
-      			<td><input type="number" step="any" class="q2" style="width: 100px;" value="0"></input></td>
-      			<td><input type="text" style="width: 100px;"></td>
-      		  </tr>      		  
-    		  <tr>
-      			<td>合计</td>
-      			<td>5</td>
-      			<td id="score">0</td>
-      			<td></td>
-      		  </tr>      		  
-  			</tbody>
-		  </table>
+        <table id="dg" class="table table-striped table-bordered"></table>
 		  <button class="btn btn-default" >零分</button> 
 		  <button class="btn btn-default">满分</button></br></br>
   	    </div>
@@ -111,9 +89,9 @@
         <button class="btn btn-default">重评</button></br></br>
   	       
   	       标注为:
-		<button class="btn btn-default">问题卷</button> 
-		<button class="btn btn-default">典型卷</button> 
-		<button class="btn btn-default">空白卷</button></br></br>
+		<button class="btn btn-default" id="questionable">问题卷</button> 
+		<button class="btn btn-default" id="typical">典型卷</button> 
+		<button class="btn btn-default" id="blank">空白卷</button></br></br>
 		
      	<button class="btn btn-default">标答</button>
   	  	<button class="btn btn-default">样题</button>
@@ -127,10 +105,5 @@
       </div>
     </div>
   </div>
-
-  <script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
-  <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-  <script src="http://cdn.bootcss.com/fabric.js/1.7.3/fabric.min.js" ></script>
-  <script src="../js/marking.js"></script>
 </body>
 </html>
