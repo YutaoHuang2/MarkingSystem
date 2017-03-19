@@ -84,8 +84,7 @@
       var editIndex = [];
       var newNum=0;
     $( document ).ready( function() {
-        var paperdata=[{"selected":"cccc","paperNum":"cccc","paperID":"cccc","paperName":"cccc","job":"cccc","grade":"cccc","module":"cccc","project":"cccc","pageNum":"cccc","state":"cccc","others":"cccc"},
-            {"select":"cccc","paperNum":"cccc","paperID":"cccc","paperName":"cccc","job":"cccc","grade":"cccc","module":"cccc","project":"cccc","pageNum":"cccc","state":"cccc","others":"cccc"}];
+        var paperdata=[{"selected":"cccc","quaID":"cccc","userId":"cccc","professionId":"cccc","rankId":"cccc","roleId":"cccc"}];
         var dgs = $( '#dg' ).datagrid({
             data:paperdata,
             columns: [[{
@@ -102,7 +101,7 @@
                     options: {}
                 }
             },{
-                field: "name",
+                field: "userId",
                 title: "姓名",
                 width:150,
                 editor: {//设置其为可编辑
@@ -111,7 +110,7 @@
                 }
 
             },{
-                field: "office",
+                field: "professionId",
                 title: "单位",
                 width:100,
                 editor: {//设置其为可编辑
@@ -119,7 +118,7 @@
                     options: {}
                 }
             },{
-                field: "jobName",
+                field: "rankId",
                 title: "职业名称",
                 width:100,
                 editor: {//设置其为可编辑
@@ -127,7 +126,7 @@
                     options: {}
                 }
             },{
-                field: "gradeName",
+                field: "roleId",
                 title: "等级名称",
                 width:100,
                 editor: {//设置其为可编辑

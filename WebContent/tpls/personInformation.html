@@ -7,9 +7,9 @@
   
   <link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">  
   <link rel="stylesheet" href="../style/main.css" >
-  <link rel="stylesheet" href="../style/datagrid.css" >
   <link rel="stylesheet" type="text/css" href="../jquery-easyui-1.5.1/themes/default/easyui.css">
   <link rel="stylesheet" type="text/css" href="../jquery-easyui-1.5.1/themes/icon.css">
+  <link rel="stylesheet" href="../style/datagrid.css" >
   <script type="text/javascript" src="../jquery-easyui-1.5.1/jquery.min.js"></script>
   <script type="text/javascript" src="../jquery-easyui-1.5.1/jquery.easyui.min.js"></script>
 </head>
@@ -134,7 +134,7 @@
           fillTable(personinfo);
         }
       });
-      var personinfo = [{"jobID":"cccc","userId":"cccc","userName":"name","name":"cccc","company":"cccc","phoneNumber":"cccc","roleName":"cccc","quality":"cccc"}];
+      var personinfo = [{"jobID":"cccc","userId":"cccc","userName":"name","name":"cccc","company":"cccc","phoneNumber":"cccc","roleName":"cccc"}];
       fillTable(personinfo);
     })
     
@@ -189,12 +189,9 @@
             field: "roleName",
             title: "角色名称",
             width:100
-        },{
-            field: "quality",
-            title: "资质",
-            width:140
         }]],
-        pagination:true
+        pagination:true,
+        fitColumns:true        
       });      
     }
     // insert a new row at second row position

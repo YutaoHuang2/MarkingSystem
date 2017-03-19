@@ -1,15 +1,6 @@
 $(document).ready(function(){
-  var isDrawingLine = false;
-  var zoomInFactor = 1.1;
-  var zoomOutFactor = 1 / zoomInFactor;
-  var zoomTime = 0;
-  var maxTimes = 3;
-  var defaultScore = 0.0;
+  var receiveData;
   var papertype = 0;
-  var fullScore;
-  var paperId;
-  var topicId;
-  var detail;
   var simage = 'data:image/png;base64,';
   var canvas = new fabric.Canvas('canvas');
   //加载图片
@@ -18,11 +9,9 @@ $(document).ready(function(){
     url: "../mark/getTopic",
     data: "userId=1234",
     success: function(data) {
-      simage += data.dir;
-      fullScore = data.fullMark;
-      paperId = data.paperId;
-      topicId = data.topicNum;
-
+      receiveData = data;
+      console.log(data);
+      simage += receiveData.dir;
       //在canvas中添加图片
       fabric.Image.fromURL(simage, function(oImg) {
         canvas.setWidth(oImg.width);
@@ -35,7 +24,7 @@ $(document).ready(function(){
     },
   });
   //阅卷细则表格
-  var tbdata=[{"detail":"cccc","fullmark":"cccc","mark":"asdf","remark":""}];
+  var tbdata=[{"detail":"cccc","fullmark":"cccc","mark":"","remark":""}];
   var dgs = $( '#dg' ).datagrid({
     data:tbdata,
     columns: [[{
@@ -156,7 +145,7 @@ $(document).ready(function(){
   })
 
   $('#fullpoints').click(function() {
-    $('#score').val(fullScore);
+    $('#score').val(receiveData.fullMark);
   })
   
   //提交按钮
@@ -166,8 +155,18 @@ $(document).ready(function(){
       multiplier: 1 / 1.25
     });
     var dataU = dataURL.substring(22);
-    var param = "userId=1234&time=0&paperId=" + paperId + "&topicId=" + topicId + "&point=3" + +"&image=" + dataU;
-    console.log(dataU);
+    var param = "userId=" + receiveData.userId +
+                "&paperId=" + receiveData.paperId + 
+                "&questionId=" + receiveData.questionId +
+                "&examineeNumber=" + receiveData.examineeNumber +    
+                "&scoreTimes=" + receiveData.status + 
+                // "&detailMark"
+                "&remarkType=" + papertype + 
+                "&scoreRemark=" + $('#remark').val() +
+                "&scoreResult=" + dataU + 
+                "&mark=" + getScores();
+    
+   
     $.ajax({
       method: 'post',
       url: "../mark/store",
@@ -178,6 +177,11 @@ $(document).ready(function(){
   })
   
   //缩放
+  var isDrawingLine = false;
+  var zoomInFactor = 1.1;
+  var zoomOutFactor = 1 / zoomInFactor;
+  var zoomTime = 0;
+  var maxTimes = 3;
   $('#zoomout').click(function() {
     if (zoomTime > -maxTimes) {
       zoomTime -= 1;
@@ -284,6 +288,10 @@ $(document).ready(function(){
   function setScores() {
     var scores = parseFloat($("input.q1").val()) + parseFloat($("input.q2").val());
     $("#score").html(scores);
+  }
+
+  function getScores() {
+    return parseFloat($("input.q1").val()) + parseFloat($("input.q2").val());
   }
   
 });
